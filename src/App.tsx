@@ -48,6 +48,8 @@ function App() {
 const [selectedUser, setSelectedUser] = useState<User | null>(null);
 const [items, setItems] = useState<Item[]>([]);
 const [isLoading, setIsLoading] = useState<boolean>(true);
+const [isDarkMode, toggleDarkMode] = useToggle(false);
+const [isError, setIsError] = useState<boolean>(false);
 
 // ===== LOADING MOCK DATA WITH useEffect =====
 useEffect(() => {
@@ -76,36 +78,64 @@ useEffect(() => {
   const previousSearch = usePrevious(searchTerm);                
 
 if (isLoading) {
-  return <p>Loading items...</p>;
+  return (
+    <div className="animate-pulse p-6 text-gray-500">
+      Loading items...
+    </div>
+  );
+}
+
+if (isError) {
+  return (
+    <div className="m-6 rounded-lg bg-red-50 p-4 text-red-700">
+      Could not load items. Please try again.
+    </div>
+  );
 }
 
   return (
-    <div className="app">
-      <input
-  ref={searchInputRef}
-  value={searchTerm}
-  onChange={handleSearchChange}
-  type="text"
-  placeholder="Search items..."
-/>
+  <div className={isDarkMode ? "dark" : ""}>
+    <div className="min-h-screen bg-gray-50 p-6 dark:bg-gray-900">
+      <button
+        onClick={toggleDarkMode}
+        className="rounded bg-gray-800 px-3 py-1.5 text-sm text-white dark:bg-gray-200 dark:text-gray-900"
+      >
+        {isDarkMode ? "Light Mode" : "Dark Mode"}
+      </button>
+      <button
+  onClick={() => setIsError(true)}
+  className="ml-2 rounded bg-red-100 px-2 py-1 text-xs text-red-700"
+>
+  Simulate Error
+</button>
 
-{previousSearch !== undefined && previousSearch !== searchTerm && (   
-        <p>Previous search: "{previousSearch}"</p>                          
-      )}                                                                    
+      <input
+        ref={searchInputRef}
+        value={searchTerm}
+        onChange={handleSearchChange}
+        type="text"
+        placeholder="Search items..."
+        className="mt-4 w-full rounded border p-2"
+      />
+
+      {previousSearch !== undefined && previousSearch !== searchTerm && (
+        <p>Previous search: "{previousSearch}"</p>
+      )}
       <button onClick={toggleDetails}>{showDetails ? "Hide" : "Show"} Details</button>
 
-
-      <ItemCard
-        item={item}
-        onSelect={(i) => console.log("Selected item:", i)}
-      />
-    
-      <UserCard user={student} />
-      <ClaimBadge claim={claim}>
-        <p>Awaiting verification</p>
-      </ClaimBadge>
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ItemCard
+          item={item}
+          onSelect={(i) => console.log("Selected item:", i)}
+        />
+        <UserCard user={student} />
+        <ClaimBadge claim={claim}>
+          <p>Awaiting verification</p>
+        </ClaimBadge>
+      </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default App;
