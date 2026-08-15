@@ -52,7 +52,3 @@ This project was built for ITELECT4 as part of GT1 (Parts 1 and 2) and GT2 (Reac
    ```
    npx tsc --noEmit
    ```
-
-## Possible Future Feature
-
-A generative-text feature could auto-suggest possible matches between "lost" and "found" reports by comparing item descriptions, or generate a clearer item description from a photo upload -- helping students find their belongings faster without manually searching through every posted item.
