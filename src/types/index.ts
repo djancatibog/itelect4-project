@@ -39,7 +39,7 @@ y: number;
 export type Formatter = (value: number) => string;
 // Using them
 const studentId: ID = "S2026-001";
-const position: Coordinate = { x: 10, y: 20 };
+
 const formatScore: Formatter = (value) => `${value}%`;
 console.log(studentId); // S2026-001
 console.log(formatScore(95.5)); // 95.5%
