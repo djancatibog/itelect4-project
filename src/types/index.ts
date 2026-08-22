@@ -9,7 +9,7 @@ export interface User {
 }
 
 export interface Item {
-  id:          number;
+  id:          number | string;
   description: string;
   location:    string;
   type:        "lost" | "found";
@@ -79,3 +79,25 @@ export type ItemUpdate    = Partial<Item>;
 export type ItemPreview   = Pick<Item, "id" | "description" | "status">;
 export type PublicItem    = Omit<Item, "reportedBy">;
 export type ItemTypeCount = Record<"lost" | "found", number>;
+
+
+
+// ===== API TYPES (Over the wire) =====
+
+// For Items: Drop the number 'id' and Date 'reportedAt', replace them with strings
+export type ApiItem = Omit<Item, "id" | "reportedAt"> & {
+  id: string;
+  reportedAt: string;
+};
+
+// When creating a new Item, we don't have an ID yet (the server makes it)
+export type NewItem = Omit<ApiItem, "id">;
+
+// For Claims: Drop the number 'id' and Date 'submittedAt', replace them with strings
+export type ApiClaim = Omit<Claim, "id" | "submittedAt"> & {
+  id: string;
+  submittedAt: string;
+};
+
+// When creating a new Claim, we don't have an ID yet
+export type NewClaim = Omit<ApiClaim, "id">;
