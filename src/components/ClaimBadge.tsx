@@ -1,8 +1,8 @@
 // src/components/ClaimBadge.tsx
-import type { Claim } from "../types/index";
+import type { ApiClaim } from "../types/index";
 
 interface ClaimBadgeProps {
-  claim: Claim;
+  claim: ApiClaim;
   children?: React.ReactNode;
 }
 

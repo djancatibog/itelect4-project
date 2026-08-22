@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "description": "Black umbrella left in Room 302",
+      "location": "Room 302",
+      "type": "found",
+      "reportedBy": 1,
+      "reportedAt": "2026-08-22T09:00:00.000Z",
+      "status": 0
+    },
+    {
+      "id": "2",
+      "description": "Blue water bottle",
+      "location": "Library",
+      "type": "found",
+      "reportedBy": 1,
+      "reportedAt": "2026-08-22T09:00:00.000Z",
+      "status": 0
+    },
+    {
+      "id": "3",
+      "description": "Lost student ID card",
+      "location": "Canteen",
+      "type": "lost",
+      "reportedBy": 2,
+      "reportedAt": "2026-08-22T09:00:00.000Z",
+      "status": 1
+    }
+  ],
+  "claims": [
+    {
+      "id": "1",
+      "itemId": 1,
+      "claimantId": 2,
+      "submittedAt": "2026-08-22T09:00:00.000Z",
+      "status": "pending"
+    },
+    {
+      "id": "2",
+      "itemId": 3,
+      "claimantId": 2,
+      "submittedAt": "2026-08-22T09:00:00.000Z",
+      "status": "verified"
+    },
+    {
+      "itemId": 2,
+      "claimantId": 2,
+      "submittedAt": "2026-08-22T14:34:43.294Z",
+      "status": "pending",
+      "id": "7iHqi5D1ZoA"
+    },
+    {
+      "itemId": 2,
+      "claimantId": 2,
+      "submittedAt": "2026-08-22T14:34:52.728Z",
+      "status": "pending",
+      "id": "cJ3zSklgXhw"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
