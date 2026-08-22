@@ -10,7 +10,7 @@ interface ItemCardProps {
 function ItemCard({ item, onSelect, variant = "default" }: ItemCardProps) {
   const isCompact = variant === "compact";
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleClick = (): void => {
     onSelect(item);
   };
 
