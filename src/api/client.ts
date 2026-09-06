@@ -12,6 +12,22 @@ export async function fetchItems(): Promise<ApiItem[]> {
   }
   return res.json();
 }
+// Sends a POST request to add a new item to db.json
+export const createItem = async (newItem: Omit<ApiItem, "id">): Promise<ApiItem> => {
+  const response = await fetch("http://localhost:3001/items", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newItem),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to save the new item.");
+  }
+
+  return response.json();
+};
 
 // GET /items?id=X - Get a single item by its ID
 export async function fetchItemById(id: string): Promise<ApiItem> {
