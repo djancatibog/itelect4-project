@@ -26,6 +26,15 @@
       "reportedBy": 2,
       "reportedAt": "2026-08-22T09:00:00.000Z",
       "status": 1
+    },
+    {
+      "description": "Power Bank",
+      "location": "MB building",
+      "type": "lost",
+      "reportedBy": 1,
+      "reportedAt": "2026-09-06T06:39:59.203Z",
+      "status": 0,
+      "id": "byF8W33heqI"
     }
   ],
   "claims": [
@@ -56,6 +65,20 @@
       "submittedAt": "2026-08-22T14:34:52.728Z",
       "status": "pending",
       "id": "cJ3zSklgXhw"
+    },
+    {
+      "itemId": 1,
+      "claimantId": 2,
+      "submittedAt": "2026-09-06T06:40:52.550Z",
+      "status": "pending",
+      "id": "J4SRE3d9F2k"
+    },
+    {
+      "itemId": 5,
+      "claimantId": 2,
+      "submittedAt": "2026-09-06T06:41:07.700Z",
+      "status": "pending",
+      "id": "GJVQcXlvCQY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
