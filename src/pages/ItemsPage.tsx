@@ -1,11 +1,10 @@
 import { Link } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { ApiItem, NewItem } from "../types/index";
-import { ItemStatus } from "../types/index";
 import ItemCard from "../components/ItemCard";
 import usePrevious from "../hooks/usePrevious";
 import useUiStore from "../store/uiStore";
-import { fetchItems, createItem } from "../api/client"; 
+import { fetchItems, createItem } from "../api/client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,21 +37,19 @@ function ItemsPage() {
     mutationFn: createItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["items"] });
-      reset(); 
+      reset();
     },
   });
 
   const onSubmit = (values: ItemFormValues): void => {
     // reporterEmail is validated by the schema (must end in @dlsl.edu.ph)
-    // but ApiItem has no email field yet, so only the item fields are sent.
-    // reportedBy: 1 is a placeholder until auth user IDs are wired up.
+    // but NewItem has no email field -- only description, location, and
+    // type are sent. The server fills in reportedBy (from the token),
+    // reportedAt (schema default), and status (schema default).
     const payload: NewItem = {
       description: values.itemName,
       location: values.location,
       type: "lost",
-      reportedBy: 1,
-      reportedAt: new Date().toISOString(),
-      status: ItemStatus.Open,
     };
     addItem.mutate(payload);
   };
@@ -68,7 +65,7 @@ function ItemsPage() {
   if (isError) {
     return (
       <div className="rounded-lg bg-red-50 p-4 text-red-700">
-        Could not load items. Is json-server running on port 3001? Error: {error.message}
+        Could not load items. Error: {error.message}
       </div>
     );
   }
@@ -80,21 +77,25 @@ function ItemsPage() {
 
   return (
     <div>
-      <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Items</h2>
+      <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+        Items
+      </h2>
 
       {/* --- THIS IS THE FORM THAT WAS MISSING --- */}
-      <form 
-        onSubmit={handleSubmit(onSubmit)} 
+      <form
+        onSubmit={handleSubmit(onSubmit)}
         className="mb-8 grid gap-4 rounded-lg border border-gray-200 p-4 dark:border-gray-700"
       >
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Report a Lost/Found Item</h3>
-        
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          Report a Lost/Found Item
+        </h3>
+
         <div className="grid gap-1.5">
           <Label htmlFor="itemName" className="text-foreground">Item Name</Label>
-          <Input 
-            id="itemName" 
-            {...register("itemName")} 
-            aria-invalid={errors.itemName ? true : undefined} 
+          <Input
+            id="itemName"
+            {...register("itemName")}
+            aria-invalid={errors.itemName ? true : undefined}
           />
           {errors.itemName && (
             <p className="text-sm text-red-600">{errors.itemName.message}</p>
@@ -102,11 +103,13 @@ function ItemsPage() {
         </div>
 
         <div className="grid gap-1.5">
-          <Label htmlFor="location" className="text-foreground">Where was it lost/found?</Label>
-          <Input 
-            id="location" 
-            {...register("location")} 
-            aria-invalid={errors.location ? true : undefined} 
+          <Label htmlFor="location" className="text-foreground">
+            Where was it lost/found?
+          </Label>
+          <Input
+            id="location"
+            {...register("location")}
+            aria-invalid={errors.location ? true : undefined}
           />
           {errors.location && (
             <p className="text-sm text-red-600">{errors.location.message}</p>
@@ -114,11 +117,13 @@ function ItemsPage() {
         </div>
 
         <div className="grid gap-1.5">
-          <Label htmlFor="reporterEmail" className="text-foreground">Campus Email</Label>
-          <Input 
-            id="reporterEmail" 
-            {...register("reporterEmail")} 
-            aria-invalid={errors.reporterEmail ? true : undefined} 
+          <Label htmlFor="reporterEmail" className="text-foreground">
+            Campus Email
+          </Label>
+          <Input
+            id="reporterEmail"
+            {...register("reporterEmail")}
+            aria-invalid={errors.reporterEmail ? true : undefined}
             placeholder="juan@dlsl.edu.ph"
           />
           {errors.reporterEmail && (
@@ -126,9 +131,9 @@ function ItemsPage() {
           )}
         </div>
 
-        <Button 
-          type="submit" 
-          disabled={addItem.isPending} 
+        <Button
+          type="submit"
+          disabled={addItem.isPending}
           className="mt-2 justify-self-start"
         >
           {addItem.isPending ? "Saving..." : "Report Item"}
@@ -153,12 +158,12 @@ function ItemsPage() {
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filteredItems.map((i) => (
           <Link key={i.id} to={`/items/${i.id}`}>
-            <ItemCard 
+            <ItemCard
               item={{
                 ...i,
                 reportedAt: new Date(i.reportedAt),
-              }} 
-              onSelect={() => {}} 
+              }}
+              onSelect={() => {}}
             />
           </Link>
         ))}

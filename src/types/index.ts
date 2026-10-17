@@ -90,8 +90,29 @@ export type ApiItem = Omit<Item, "id" | "reportedAt"> & {
   reportedAt: string;
 };
 
-// When creating a new Item, we don't have an ID yet (the server makes it)
-export type NewItem = Omit<ApiItem, "id">;
+// What we SEND when creating an item. Only description, location, and type —
+// the server fills in reportedBy (from the token), reportedAt (schema default),
+// and status (schema default).
+export type NewItem = Pick<Item, "description" | "location" | "type">;
+
+// What /api/auth/register sends back
+export type ApiUser = Omit<User, "id"> & {
+  id: string;
+};
+
+// What /api/auth/login sends back
+export interface AuthReply {
+  token: string;
+  user: ApiUser;
+}
+
+// Reference data served by the backend's public course routes.
+export interface Course {
+  code: string;
+  title: string;
+  units: number;
+  semester: string;
+}
 
 // For Claims: Drop the number 'id' and Date 'submittedAt', replace them with strings
 export type ApiClaim = Omit<Claim, "id" | "submittedAt"> & {
