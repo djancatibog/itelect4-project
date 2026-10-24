@@ -1,4 +1,4 @@
-import type { ApiItem, NewItem, ApiUser, AuthReply, Course } from "../types/index";
+import type { ApiItem, NewItem, ApiUser, AuthReply, Course, AiReportDraft } from "../types/index";
 import useAuthStore from "../store/authStore";
 
 // Vite only exposes variables whose name starts with VITE_, and it
@@ -95,5 +95,16 @@ export function loginUser(body: {
   return request<AuthReply>("/api/auth/login", {
     method: "POST",
     body: JSON.stringify(body),
+  });
+}
+
+// ===== SESSION 11: one more private call ===============================
+// Private, like items. The token goes on automatically through
+// request(). No Gemini key and no Gemini address anywhere in this
+// file: the frontend calls YOUR API.
+export function askAi(prompt: string): Promise<AiReportDraft> {
+  return request<AiReportDraft>("/api/ai", {
+    method: "POST",
+    body: JSON.stringify({ prompt }),
   });
 }

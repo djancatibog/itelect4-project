@@ -7,6 +7,7 @@ import ItemDetailPage from "./pages/ItemDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ClaimsPage from "./pages/ClaimsPage";
+import ReportPage from "./pages/ReportPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -20,8 +21,9 @@ function App() {
         {/* Public, like login: you cannot be logged in yet. */}
         <Route path="register" element={<RegisterPage />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="claims" element={<ClaimsPage />} />
-        </Route>
+  <Route path="claims" element={<ClaimsPage />} />
+  <Route path="report" element={<ReportPage />} />
+</Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

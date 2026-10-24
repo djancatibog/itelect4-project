@@ -122,3 +122,17 @@ export type ApiClaim = Omit<Claim, "id" | "submittedAt"> & {
 
 // When creating a new Claim, we don't have an ID yet
 export type NewClaim = Omit<ApiClaim, "id">;
+
+
+
+// ===== SESSION 11: what POST /api/ai sends back ======================
+// Copied by hand from itelect4-backend's ReportDraft, which comes from
+// the Zod schema in src/schemas/report.ts. Nothing checks that the two
+// agree -- you do.
+export interface AiReportDraft {
+  title:          string;
+  category:       "bags" | "electronics" | "clothing" | "documents" | "accessories" | "other";
+  tags:           string[];
+  missingDetails: string[];
+  clarity:        "clear" | "needs-detail" | "too-vague";
+}
