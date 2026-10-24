@@ -26,6 +26,7 @@ const toggleDarkMode = useUiStore((state) => state.toggleDarkMode);
           <NavLink to="/" end className={linkClass}>Dashboard</NavLink>
           <NavLink to="/items" className={linkClass}>Items</NavLink>
           <NavLink to="/claims" className={linkClass}>Claims</NavLink>
+          <NavLink to="/report" className={linkClass}>AI Report</NavLink>
 
           {userName === null ? (
             <>
