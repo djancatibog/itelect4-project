@@ -1,5 +1,28 @@
 https://itelect4-project-puce.vercel.app
 
+[![CI](https://github.com/djancatibog/itelect4-project/actions/workflows/ci.yml/badge.svg)](https://github.com/djancatibog/itelect4-project/actions/workflows/ci.yml)
+
+- **Live Frontend:** https://itelect4-project-puce.vercel.app
+- **Live API:** https://itelect4-backend-iota.vercel.app/api/health
+- **Backend Repo:** https://github.com/djancatibog/itelect4-backend
+
+## Architecture
+
+```mermaid
+flowchart LR
+  fe["itelect4-project<br/>React + Vite on Vercel"]
+  be["itelect4-backend<br/>Express on Vercel"]
+  db[("MongoDB Atlas")]
+  ai["Gemini API"]
+  fe -- "fetch + Bearer token" --> be
+  be -- "Mongoose" --> db
+  be -- "GEMINI_API_KEY" --> ai
+```
+
+## AI Disclosure
+AI tools (Claude / Antigravity) were used to assist in test suite setup, workflow configuration, and code review.
+
+
 # Campus Lost & Found Tracker
 
 A simple TypeScript project for tracking lost and found items on campus. Students and security admins can report items, track their status through a lifecycle (Open -> Claimed -> Resolved), and manage claims made by students trying to recover their belongings.
